@@ -61,7 +61,8 @@ work_info=do_update_wlearner_info(train_info, work_info, wlearner_update_info);
 new_pair_feat=train_info.calc_pair_feat_fn(train_info, work_info.cache_info, work_info.new_wlearner);
 
 
-work_info.pair_feat=cat(2,work_info.pair_feat, new_pair_feat);
+%work_info.pair_feat=cat(2,work_info.pair_feat, new_pair_feat);
+work_info.new_pair_feat=new_pair_feat;
 
 
 end

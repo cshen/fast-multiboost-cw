@@ -108,6 +108,9 @@ if method_type==3
 end
 
 
+% if cannot use the matlab mex file, turn this off:
+% train_info.use_solver_mex=false;
+
 
 train_info.max_iteration_num=max_iteration_num;
 train_info.train_data=train_data;

@@ -41,9 +41,8 @@ end
 use_mex=train_info.use_solver_mex;
 % use_mex=false;
 
-wl_num=size(work_info.pair_feat, 2);    
-work_info.solver_wl_valid_sel=true(wl_num, 1);
 
+new_wl_num=size(work_info.new_pair_feat, 2);
 
 train_cache=[];
 if isfield(work_info, 'train_cache_sub')
@@ -62,21 +61,20 @@ if isempty(train_cache)
         train_cache.p_sel_mat=false(0);
         train_cache.n_sel_mat=false(0);
     end
-    
-    train_cache.w=zeros(wl_num,1);
+        
     train_cache.exp_m_wh=label_losses;
-    train_cache.wl_num=wl_num;
-    
-    work_info.solver_feat_change_idxes=(1:wl_num)';
+    old_wl_num=0;
+
 else
     
     old_wl_num=length(train_cache.w);
-    work_info.solver_feat_change_idxes=(old_wl_num+1:wl_num)';
-    train_cache.w(work_info.solver_feat_change_idxes)=0;
 end
 
+wl_num=old_wl_num+new_wl_num;    
+work_info.solver_feat_change_idxes=(old_wl_num+1:wl_num)';
+train_cache.w(work_info.solver_feat_change_idxes)=0;
 
-new_wl_num=length(work_info.solver_feat_change_idxes);
+work_info.solver_wl_valid_sel=true(wl_num, 1);
 work_info.solver_update_wl_idxes=work_info.solver_feat_change_idxes;
 
 
@@ -296,11 +294,17 @@ new_w_dim_idxes=work_info.solver_feat_change_idxes;
 if ~isempty(new_w_dim_idxes)
     train_cache=update_cache_remove_dim(train_cache, new_w_dim_idxes);
 
-    new_p_sel_mat=work_info.pair_feat(:,new_w_dim_idxes)>0.5;
-    
+    new_p_sel_mat=work_info.new_pair_feat>0.5;
+
+
     % for multiclass case, pair feat may have the value 0, so don't do this
 %     new_n_sel_mat=~new_p_sel_mat;
-    new_n_sel_mat=work_info.pair_feat(:,new_w_dim_idxes)<-0.5;
+
+    new_n_sel_mat=work_info.new_pair_feat<-0.5;
+
+
+    assert(size(new_p_sel_mat, 2)==length(new_w_dim_idxes));
+
     
     if use_mex
         train_cache.p_sel_mat(:, new_w_dim_idxes)=int8(new_p_sel_mat);
@@ -364,35 +368,38 @@ function [train_result_sub work_info]=call_solver_stage(train_info, work_info)
 % only
 
 label_losses=work_info.pair_label_losses;
-feat_data=work_info.pair_feat;
-w_dim=size(feat_data,2);
+new_pair_feat=work_info.new_pair_feat;
+new_w_dim=size(new_pair_feat,2);
 
 
-init_w=zeros(w_dim,1);
 last_train_cache=[];
 if isfield(work_info, 'train_cache_sub')
-        last_train_cache=work_info.train_cache_sub;
+    last_train_cache=work_info.train_cache_sub;
 end
 
 
-exp_m_wh=label_losses;
-
-last_w_dim=0;
 if ~isempty(last_train_cache)
     last_w_dim=length(last_train_cache.w);
-    init_w(1:last_w_dim)=last_train_cache.w;
+    init_w=last_train_cache.w;
     exp_m_wh=last_train_cache.exp_m_wh;
+else
+    last_w_dim=0;
+    init_w=[];
+    exp_m_wh=label_losses;
 end
 
 
-
+w_dim=last_w_dim+new_w_dim;
 ws_dim_idxes=last_w_dim+1:w_dim;
+init_w(ws_dim_idxes)=0;
+
+
 w=init_w;
 
 for nw_idx=1:length(ws_dim_idxes)
     
     nw_dim=ws_dim_idxes(nw_idx);
-    f_j=feat_data(:,nw_dim);
+    f_j=new_pair_feat(:, nw_idx);
     p_sel=f_j>0.5;
     n_sel=f_j<-0.5;
 

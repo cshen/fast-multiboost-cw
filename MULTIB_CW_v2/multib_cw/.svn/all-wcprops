@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/2/trunk/MULTIB_CW_v2/multib_cw
+END
+quantize_data.m
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2/trunk/MULTIB_CW_v2/multib_cw/quantize_data.m
+END
+boost_solver_mex_simple.mexa64
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2/trunk/MULTIB_CW_v2/multib_cw/boost_solver_mex_simple.mexa64
+END
+boost_learn_config.m
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2/trunk/MULTIB_CW_v2/multib_cw/boost_learn_config.m
+END
+multibcw_predict.m
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2/trunk/MULTIB_CW_v2/multib_cw/multibcw_predict.m
+END
+cp_matlib.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/2/trunk/MULTIB_CW_v2/multib_cw/cp_matlib.h
+END
+boost_solver_cd.m
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2/trunk/MULTIB_CW_v2/multib_cw/boost_solver_cd.m
+END
+boost_learn.m
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2/trunk/MULTIB_CW_v2/multib_cw/boost_learn.m
+END
+multibcw_learn.m
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/2/trunk/MULTIB_CW_v2/multib_cw/multibcw_learn.m
+END
+boost_solver_mex_simple.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2/trunk/MULTIB_CW_v2/multib_cw/boost_solver_mex_simple.cpp
+END

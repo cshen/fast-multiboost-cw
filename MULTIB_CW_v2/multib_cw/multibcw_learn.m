@@ -21,6 +21,9 @@
 
 function train_result=multibcw_learn(train_info)
 
+fpraintf('\n\n #################### multibcw_learn ########################\n\n')
+
+fpraintf('generating cache....\n');
 
 if ~isfield(train_info, 'use_cw')
     train_info.use_cw=true;
@@ -39,7 +42,6 @@ end
 
 train_data=train_info.train_data;
 train_data.label_vs=unique(train_data.label_data);
-
 
 struct_data=do_gen_struct_data_mc(train_data, use_cw);
 train_info.struct_data=struct_data;
@@ -88,6 +90,10 @@ end
 
 
 train_result.model=model;
+
+
+fpraintf('\n\n #################### multibcw_learn finished ########################\n\n')
+
 
 end
 

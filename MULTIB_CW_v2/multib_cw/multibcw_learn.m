@@ -21,9 +21,9 @@
 
 function train_result=multibcw_learn(train_info)
 
-fpraintf('\n\n #################### multibcw_learn ########################\n\n')
+fprintf('\n\n #################### multibcw_learn ########################\n\n')
 
-fpraintf('generating cache....\n');
+fprintf('generating cache....\n');
 
 if ~isfield(train_info, 'use_cw')
     train_info.use_cw=true;
@@ -92,7 +92,7 @@ end
 train_result.model=model;
 
 
-fpraintf('\n\n #################### multibcw_learn finished ########################\n\n')
+fprintf('\n\n #################### multibcw_learn finished ########################\n\n')
 
 
 end
@@ -568,5 +568,6 @@ fprintf('---multib-cw: class:%d, example:%d, feat:%d, wlearner:%d, solver_mex:%d
     train_info.use_solver_mex, train_info.use_stagewise, train_info.use_cw);
 
 end
+
 
 
